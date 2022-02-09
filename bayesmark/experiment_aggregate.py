@@ -150,7 +150,7 @@ def concat_experiments(all_experiments, ravel=False):
 
     all_time = xru.ds_concat(all_time, dims=(TEST_CASE, METHOD, TRIAL))
     assert all(all_time[kk].dims == (ITER, TEST_CASE, METHOD, TRIAL) for kk in all_time)
-    assert not any(np.any(np.isnan(all_time[kk].values.astype("int"))) for kk in all_time)
+    assert not any(np.any(np.isnan(all_time[kk].values.astype("float"))) for kk in all_time)
     assert xru.coord_compat((all_perf, all_time), (ITER, TEST_CASE, METHOD, TRIAL))
 
     for test_case in all_suggest:
@@ -159,7 +159,7 @@ def concat_experiments(all_experiments, ravel=False):
             all_suggest[test_case][kk].dims == (ITER, SUGGEST, TEST_CASE, METHOD, TRIAL)
             for kk in all_suggest[test_case]
         )
-        assert not any(np.any(np.isnan(all_suggest[test_case][kk].values)) for kk in all_suggest[test_case])
+        assert not any(np.any(np.isnan(all_suggest[test_case][kk].values.astype("float"))) for kk in all_suggest[test_case])
         assert xru.coord_compat((all_perf, all_suggest[test_case]), (ITER, METHOD, TRIAL))
         assert all_suggest[test_case].coords[TEST_CASE].shape == (1,), "test case should be singleton"
 
