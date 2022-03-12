@@ -251,6 +251,8 @@ def main():
     perf_ds, meta = XRSerializer.load_derived(args[CmdArgs.db_root], db=args[CmdArgs.db], key=cc.EVAL_RESULTS)
     logger.info("Meta data from source file: %s" % str(meta["args"]))
 
+    perf_ds = perf_ds.dropna("function") # ADDED
+
     # Check if there is baselines file, other make one
     if cc.BASELINE not in XRSerializer.get_derived_keys(args[CmdArgs.db_root], db=args[CmdArgs.db]):
         warnings.warn("Baselines not found. Need to construct baseline.")

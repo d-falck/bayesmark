@@ -224,6 +224,7 @@ class XRSerializer(Serializer):
         XRSerializer._validate(db_root, keys=[key], db=db)
 
         fnames = sorted(os.listdir(os.path.join(db_root, db, key)))
+        fnames = list(filter(lambda x: not x.startswith("."), fnames))
         uuids = [XRSerializer._fname_to_uuid(ff) for ff in fnames]
         return uuids
 

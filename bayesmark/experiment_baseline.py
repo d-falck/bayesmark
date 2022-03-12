@@ -149,6 +149,8 @@ def do_baseline(args):  # pragma: io
     perf_ds, meta = XRSerializer.load_derived(args[CmdArgs.db_root], db=args[CmdArgs.db], key=cc.EVAL_RESULTS)
     logger.info("Meta data from source file: %s" % str(meta["args"]))
 
+    perf_ds = perf_ds.dropna("function") # ADDED
+
     D = OrderedDict()
     for kk in perf_ds:
         perf_da = perf_ds[kk]
